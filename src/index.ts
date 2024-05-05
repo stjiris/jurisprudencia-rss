@@ -102,7 +102,7 @@ async function main() {
         });
 
         
-        if(counter >= 1000){
+        if(counter >= process.env.RSS_MAX_FEED_SIZE){
             break;
         }
     }
