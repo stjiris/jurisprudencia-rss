@@ -30,7 +30,6 @@ async function main() {
 
     let p = client.helpers.scrollDocuments<JurisprudenciaDocument>({
         index: JurisprudenciaVersion,
-        //_source: ["Número de Processo", "Relator Nome Profissional", "Data"],
         sort: {
             Data: "desc"
         }
