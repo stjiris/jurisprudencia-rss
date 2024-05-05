@@ -5,7 +5,7 @@ import { Feed } from "feed";
 import { writeFile } from "fs/promises";
 import path from "path";
 
-const client = new Client({ node: process.env.ES_URL || "http://localhost:9200", auth: { username: "elastic", password: "elasticsearch" } })
+export const client = new Client({ node: process.env.ES_URL || "http://localhost:9200", auth: { username: process.env.ES_USER || "", password: process.env.ES_PASS || "" } });
 const publicLink = process.env.RSS_LINK || "http://localhost:3000/jurisprudencia"
 
 function isAreaInFeed(map: Map<string, Feed>, area: string | undefined) {
