@@ -102,7 +102,7 @@ async function main() {
         });
 
         
-        if(counter >= process.env.RSS_MAX_FEED_SIZE){
+        if(counter >= parseInt(process.env.RSS_MAX_FEED_SIZE!)){
             break;
         }
     }
