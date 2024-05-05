@@ -30,6 +30,14 @@ async function main() {
 
     let p = client.helpers.scrollDocuments<JurisprudenciaDocument>({
         index: JurisprudenciaVersion,
+        _source: {
+            excludes: ["CONTENT", "Doutrina", "Fonte", "HASH", "Indicações Eventuais", "Jurisprudência",
+            "Jurisprudência Estrangeira", "Jurisprudência Internacional", "Jurisprudência Nacional",
+            "Legislação Comunitária", "Legislação Estrangeira", "Legislação Nacional", "Original",
+            "Referência de publicação", "Referências Internacionais", "Relator Nome Completo", "STATE",
+            "Texto", "Tipo", "Tribunal de Recurso", "Tribunal de Recurso - Processo", "URL", "Área Temática"
+             ]
+        },
         sort: {
             Data: "desc"
         }
