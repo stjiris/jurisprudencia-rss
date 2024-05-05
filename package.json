@@ -1,0 +1,23 @@
+{
+  "name": "jurisprudencia-rss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@elastic/elasticsearch": "^8.13.1",
+    "@stjiris/jurisprudencia-document": "^11.1.4",
+    "feed": "^4.2.2",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/elasticsearch": "^5.0.43",
+    "@types/node": "^20.12.7"
+  }
+}
