@@ -68,7 +68,6 @@ async function main() {
         
         // Adiciona para RSS geral
         if(!(feed.items.length === parseInt(process.env.RSS_MAX_FEED_SIZE!))){
-            console.log(feed.items.length)
             feed.addItem({
                 title: acordao["Número de Processo"] || "Número de Processo não encontrado",
                 id: id,
@@ -97,7 +96,6 @@ async function main() {
             continue;
         }
         else {
-            console.log(feeds.get(acordao.Área?.Show[0]).items.length)
             feeds.get(acordao.Área?.Show[0]).addItem({
                 title: acordao["Número de Processo"] || "Número de Processo não encontrado",
                 id: id,
