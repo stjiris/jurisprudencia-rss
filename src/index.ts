@@ -8,17 +8,6 @@ import path from "path";
 const client = new Client({ node: process.env.ES_URL || "http://localhost:9200", auth: { username: "elastic", password: "elasticsearch" } })
 const publicLink = process.env.RSS_LINK || "http://localhost:3000/jurisprudencia"
 
-function isAreaInFeed(map: Map<string, Feed>, area: string | undefined) {
-    for (let feedArea of map.keys()) {
-        if (feedArea === area) {
-            return true;
-        }
-    }
-    // If no match is found, return false
-    return false;
-}
-
-
 async function main() {
     const feed = new Feed({
         title: 'RSS Jurisprudência - Geral',
@@ -67,7 +56,8 @@ async function main() {
         }
         
         // Adiciona para RSS geral
-        if(!(feed.items.length === parseInt(process.env.RSS_MAX_FEED_SIZE!))){
+        if(feed.items.length < parseInt(process.env.RSS_MAX_FEED_SIZE!)){
+            console.log(feed.items.length)
             feed.addItem({
                 title: acordao["Número de Processo"] || "Número de Processo não encontrado",
                 id: id,
@@ -80,7 +70,7 @@ async function main() {
             });
         }
 
-        if(!isAreaInFeed(feeds, acordao.Área?.Show[0])){
+        if(!feeds.has(acordao.Área?.Show[0])){
             const newFeed = new Feed({
                 title: 'RSS Jurisprudência - ' + acordao.Área?.Show,
                 id: publicLink,
@@ -92,10 +82,8 @@ async function main() {
         }
 
         // Adiciona para RSS da sua área
-        if(feeds.get(acordao.Área?.Show[0]).items.length >= parseInt(process.env.RSS_MAX_FEED_SIZE!)){
-            continue;
-        }
-        else {
+        if(feeds.get(acordao.Área?.Show[0]).items.length < parseInt(process.env.RSS_MAX_FEED_SIZE!)){
+            console.log(feeds.get(acordao.Área?.Show[0]).items.length)
             feeds.get(acordao.Área?.Show[0]).addItem({
                 title: acordao["Número de Processo"] || "Número de Processo não encontrado",
                 id: id,
@@ -107,18 +95,16 @@ async function main() {
                 date: data 
             });
         }
-}
+    }
 
-    feeds.forEach(async (feed,area) => {
+    for (const [area, feed] of feeds.entries()){
         let aggKey = area
         if (aggKey == "Geral"){
             aggKey = "rss"
         }
         const pathToRSS = path.join(process.env.RSS_FOLDER || "", aggKey + ".xml")
         await writeFile(pathToRSS,feed.rss2())
-    });
+    }
 }
 
 main()
-
-
