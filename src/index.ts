@@ -27,6 +27,11 @@ async function main() {
             "Texto", "Tipo", "Tribunal de Recurso", "Tribunal de Recurso - Processo", "URL", "Área Temática"
              ]
         },
+        query:{
+            term:{
+                STATE: "público"
+            }
+        },
         sort: {
             Data: "desc"
         }
